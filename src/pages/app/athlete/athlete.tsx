@@ -5,6 +5,7 @@ import { AthleteAnamnesisCard } from "./athlete-anamnesis-card/athlete-anamnesis
 import { AthleteGuardianCard } from "./athlete-guardian-card/athlete-guardian-card";
 import { AthleteAddressCard } from "./athlete-address-card/athlete-address-card";
 import { AthleteTermsCard } from "./athlete-terms-card/athlete-terms-card";
+import { AthleteAIObservationCard } from "./athlete-ai-card/athlete-ai-card";
 
 import { AthleteObservationCard } from "./athlete-observation-card/athlete-observation-card";
 
@@ -72,6 +73,8 @@ export function Athlete() {
 
                             {isLoading || !data ? <AthleteAddressSkeletonCard /> : <AthleteAddressCard athleteId={athleteId} address={data?.address ?? null} />}
 
+                            {data && <AthleteAIObservationCard data={data} />}
+                            
                             {data && <AthleteObservationCard athleteId={data.athlete.id} />}
                         </main>
                     </div>

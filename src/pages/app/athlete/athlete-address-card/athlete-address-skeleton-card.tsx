@@ -1,4 +1,4 @@
-import { AddressSkeletonForm } from "@/components/address-skeleton-form";
+import { AddressSkeletonForm } from "./address-skeleton-form";
 
 import { MapPin } from "lucide-react";
 

@@ -1,4 +1,4 @@
-import { AddressForm } from "@/components/address-form";
+import { AddressForm } from "./address-form";
 
 import { MapPin } from "lucide-react";
 

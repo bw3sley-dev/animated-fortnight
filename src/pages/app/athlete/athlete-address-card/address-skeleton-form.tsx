@@ -1,6 +1,6 @@
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { Label } from "./ui/label";
+import { Label } from "@/components/ui/label";
 
 export function AddressSkeletonForm() {
     return (

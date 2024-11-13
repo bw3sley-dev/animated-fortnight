@@ -8,6 +8,7 @@ export type GetAthleteResponse = {
     athlete: {
         id: string,
         name: string,
+        observation: string | null,
         birthDate: string,
         handedness: "RIGHT" | "LEFT",
         gender: "MALE" | "FEMALE",

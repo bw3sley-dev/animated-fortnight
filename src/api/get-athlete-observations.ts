@@ -28,7 +28,7 @@ export type GetAthleteObservationsResponse = {
 }
 
 export async function getAthleteObservations({ athleteId, areaName }: GetAthleteObservationsParams) {
-    const response = await api.get<GetAthleteObservationsResponse>(`/athletes/${athleteId}/areas/${areaName}/thread`);
+    const response = await api.get<GetAthleteObservationsResponse>(`/athletes/${athleteId}/areas/${areaName}/thread/observations`);
 
     return response.data;
 }

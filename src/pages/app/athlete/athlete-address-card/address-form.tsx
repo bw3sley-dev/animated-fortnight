@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 
-import { Control, Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Button } from "./ui/button";
+import { Control, Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 

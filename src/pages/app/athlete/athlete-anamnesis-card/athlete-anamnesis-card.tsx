@@ -20,7 +20,7 @@ export function AthleteAnamnesisCard({ athleteId, anamnesis }: AnamnesisCardProp
             </div>
 
             <div className="space-y-1">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between gap-2 items-center">
                     <h2 className="font-bold text-xl">Anamnese do atleta</h2>
 
                     {anamnesis.id && (

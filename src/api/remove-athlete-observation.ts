@@ -2,10 +2,10 @@ import { api } from "@/lib/axios";
 
 export type RemoveAthleteObservationParams = {
     athleteId: string,
-    threadId: number | null,
+    areaName: string,
     observationId: number
 }
 
-export async function removeAthleteObservation({ athleteId, threadId, observationId }: RemoveAthleteObservationParams) {
-    await api.delete(`/athletes/${athleteId}/threads/${threadId}/observations/${observationId}`);
+export async function removeAthleteObservation({ athleteId, areaName, observationId }: RemoveAthleteObservationParams) {
+    await api.delete(`/athletes/${athleteId}/areas/${areaName}/observations/${observationId}`);
 }

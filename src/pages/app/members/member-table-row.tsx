@@ -94,7 +94,7 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
             </TableCell>
 
             <TableCell>
-                {member.phone}
+                {member.phone ? member.phone : <span className="text-slate-400">Telefone não cadastrado</span>}
             </TableCell>
 
             <TableCell>
@@ -114,7 +114,7 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
             </TableCell>
 
             <TableCell>
-                {member.areas.length > 0 ? mapArea(member.areas) : <span className="text-slate-300">Nenhuma área vinculada nesse usuário</span>}
+                {member.areas.length > 0 ? mapArea(member.areas) : <span className="text-slate-400">Nenhuma área vinculada nesse usuário</span>}
             </TableCell>
 
             <TableCell className="flex justify-center">

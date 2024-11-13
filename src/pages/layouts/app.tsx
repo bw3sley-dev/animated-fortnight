@@ -46,12 +46,8 @@ export function AppLayout() {
                 if (isAxiosError(error)) {
                     const status = error.response?.status;
 
-                    if (status === 401 || status === 403 || status === 404) {
+                    if (status === 403 || status === 401) {
                         navigate("/404", { replace: true });
-                    }
-
-                    if (status === 400) {
-                        navigate("/", { replace: true });
                     }
                 }
             },

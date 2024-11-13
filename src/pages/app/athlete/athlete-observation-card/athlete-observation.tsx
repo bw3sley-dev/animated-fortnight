@@ -113,8 +113,7 @@ export function AthleteObservation({ threads, athleteId, area }: AthleteObservat
             await removeAthleteObservationFn({
                 athleteId,
                 observationId,
-                
-                threadId: threads.thread && threads.thread?.id
+                areaName: area
             })        
         }
 
@@ -137,7 +136,7 @@ export function AthleteObservation({ threads, athleteId, area }: AthleteObservat
     }
 
     return (
-        <details className="border-t border-slate-700 p-4">
+        <details className="border-t border-slate-700 p-4" open>
             <summary className="flex items-center justify-between">
                 <strong className="text-md text-slate-200">Observações cadastradas</strong>
 

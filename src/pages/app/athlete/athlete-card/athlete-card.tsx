@@ -4,7 +4,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 import { getNameInitials } from "@/utils/get-name-initials";
 
-import { AthleteDialog } from "./athlete-dialog";
+import { AthleteDialog } from "../athlete-dialog";
 
 import { Plus } from "lucide-react";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { ChevronDown, NotebookPen } from "lucide-react";
+import { NotebookPen } from "lucide-react";
 
 import * as Tabs from "@radix-ui/react-tabs";
 
@@ -16,13 +16,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { mapArea } from "@/utils/mappings/map-area-name";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { toast } from "sonner";
 
 import { errorHandler } from "@/error-handler";
 
-import { createAthleteThread } from "@/api/create-athlete-thread";
+import { createAthleteObservation } from "@/api/create-athlete-observation";
+import { getAthleteObservations } from "@/api/get-athlete-observations";
+
+import { queryClient } from "@/lib/react-query";
+
+import { AthleteObservation } from "./athlete-observation";
+
+import { getMemberAreas } from "@/utils/auth/get-member-areas";
 
 const athleteThreadFormSchema = z.object({
     content: z.string().min(1, "O campo de observação não pode estar vazio")
@@ -34,8 +41,12 @@ interface AthleteThreadCardProps {
     athleteId: string
 }
 
-export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
-    const [activeArea, setActiveArea] = useState<string>("PHYSICAL_EDUCATION");
+export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
+    const [activeArea, setActiveArea] = useState<string>("PSYCHOLOGY");
+
+    const userAreas = getMemberAreas();
+    
+    const hasAccessToArea = userAreas.includes(activeArea);
 
     const { handleSubmit, control, reset, formState: { errors } } = useForm<AthleteThreadForm>({
         resolver: zodResolver(athleteThreadFormSchema),
@@ -43,11 +54,20 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
         defaultValues: { content: "" }
     })
 
-    const { mutateAsync: createAthleteThreadFn } = useMutation({
-        mutationFn: createAthleteThread,
+    const { data: threads } = useQuery({
+        queryKey: ["threads", activeArea],
+        queryFn: () => getAthleteObservations({ athleteId, areaName: activeArea })
+    })
+
+    const { mutateAsync: createAthleteObservationFn } = useMutation({
+        mutationFn: createAthleteObservation,
 
         onSuccess: () => {
             toast.success("Observação cadastrada com sucesso!");
+
+            queryClient.invalidateQueries({
+                queryKey: ["threads", activeArea]
+            })
 
             reset();
         }
@@ -55,11 +75,11 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
 
     async function handleNewThread(data: AthleteThreadForm) {
         try {
-            await createAthleteThreadFn({
+            await createAthleteObservationFn({
                 area: activeArea,
                 content: data.content,
-                
-                athleteId 
+
+                athleteId
             })
         }
 
@@ -83,7 +103,7 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
             </div>
 
             <Tabs.Root
-                defaultValue="PHYSICAL_EDUCATION"
+                defaultValue="PSYCHOLOGY"
                 onValueChange={(value) => setActiveArea(value)}
                 className="bg-slate-900 border border-slate-700 rounded-md overflow-hidden"
             >
@@ -113,6 +133,7 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
                                     render={({ field }) => (
                                         <Textarea
                                             {...field}
+                                            disabled={!hasAccessToArea}
                                             placeholder={`Digite uma observação para ${mapArea(area).toLowerCase()}...`}
                                             className="bg-slate-800 placeholder:text-slate-400"
                                         />
@@ -121,7 +142,7 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
                                 <div className="group-focus-within:flex justify-between hidden gap-2">
                                     <div>
                                         {errors.content && (
-                                            <span className="text-red-500 text-xs">{errors.content.message}</span>
+                                            <span className="text-red-500 text-sm">{errors.content.message}</span>
                                         )}
                                     </div>
 
@@ -140,17 +161,13 @@ export function AthleteThreadCard({ athleteId }: AthleteThreadCardProps) {
                     ))}
                 </div>
 
-                <details className="border-t border-slate-700 px-4 py-2">
-                    <summary className="flex items-center justify-between">
-                        <strong className="text-sm text-slate-300">Observações cadastradas</strong>
-
-                        <div className="size-8 cursor-pointer hover:bg-slate-700 flex items-center justify-center transition-colors rounded-md">
-                            <ChevronDown className="size-5 text-slate-400" />
-                        </div>
-                    </summary>
-
-                    <div>oi</div>
-                </details>
+                {threads && threads.thread && threads.thread.observations.length > 0 && (
+                    <AthleteObservation 
+                        threads={threads} 
+                        area={activeArea}
+                        athleteId={athleteId}
+                    />
+                )}
             </Tabs.Root>
         </div>
     );

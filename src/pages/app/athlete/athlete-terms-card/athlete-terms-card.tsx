@@ -26,8 +26,6 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
     return (
         <div className="flex border border-slate-700 rounded gap-3 flex-col relative overflow-hidden py-6">
             <div className="flex items-center gap-3 px-6">
-                {/* <FileText className="size-5 text-slate-400" /> */}
-
                 <strong className="font-semibold">Termos</strong>
             </div>
 

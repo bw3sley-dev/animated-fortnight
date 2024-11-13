@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { getNameInitials } from "@/utils/get-name-initials";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Loader2, Pencil, Trash2 } from "lucide-react";
 
 import { UpdateMemberDialog } from "./update-member-dialog";
 
@@ -23,6 +23,22 @@ import { toast } from "sonner";
 
 import { queryClient } from "@/lib/react-query";
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTrigger,
+    AlertDialogContent,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog";
+
+import { useState } from "react";
+
+import { errorHandler } from "@/error-handler";
+
 interface MemberTableRowsProps {
     member: {
         id: string,
@@ -35,7 +51,9 @@ interface MemberTableRowsProps {
 }
 
 export function MemberTableRow({ member }: MemberTableRowsProps) {
-    const { mutateAsync: removeMemberFn } = useMutation({
+    const [open, setOpen] = useState(false);
+
+    const { mutateAsync: removeMemberFn, isPending } = useMutation({
         mutationFn: removeMember,
 
         onSuccess: () => {
@@ -46,6 +64,14 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
             })
         }
     })
+
+    async function handleMemberRemotion(memberId: string) {
+        try {
+            await removeMemberFn({ memberId });
+        }
+
+        catch (error) { errorHandler(error) }
+    }
 
     return (
         <TableRow className="group border-b border-slate-700">
@@ -88,18 +114,52 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
             </TableCell>
 
             <TableCell>
-                {mapArea(member.areas)}
+                {member.areas.length > 0 ? mapArea(member.areas) : <span className="text-slate-300">Nenhuma área vinculada nesse usuário</span>}
             </TableCell>
 
             <TableCell className="flex justify-center">
-                <button 
-                    type="button"
-                    title="Delete o usuário"
-                    onClick={() => removeMemberFn({ memberId: member.id })} 
-                    className="border gap-2 size-9 border-slate-800 rounded-md flex items-center justify-center hover:bg-slate-700/60"
-                >
-                    <Trash2 className="size-4" />
-                </button>
+                <AlertDialog open={open} onOpenChange={setOpen}>
+                    <AlertDialogTrigger asChild>
+                        <button
+                            type="button"
+                            title="Delete o usuário"
+                            className="border gap-2 size-9 border-slate-800 rounded-md flex items-center justify-center disabled:bg-slate-700 disabled:text-slate-400 disabled:cursor-not-allowed hover:enabled:bg-slate-700/60"
+                        >
+                            <Trash2 className="size-4" />
+                        </button>
+                    </AlertDialogTrigger>
+
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                Você tem certeza disso?
+                            </AlertDialogTitle>
+
+                            <AlertDialogDescription>
+                                Esta ação não pode ser desfeita. Ao deletar o usuário, todos os dados associados a ele serão removidos permanentemente da plataforma.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                            <AlertDialogCancel asChild>
+                                <Button type="button" size="lg" variant="ghost">
+                                    <span>Cancelar</span>
+                                </Button>
+                            </AlertDialogCancel>
+
+                            <AlertDialogAction asChild>
+                                <Button
+                                    type="button"
+                                    variant="primary"
+                                    size="lg"
+                                    onClick={() => handleMemberRemotion(member.id)}
+                                >
+                                    {isPending ? <Loader2 className="size-5" /> : <span>Continuar</span>}
+                                </Button>
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </TableCell>
         </TableRow>
     )

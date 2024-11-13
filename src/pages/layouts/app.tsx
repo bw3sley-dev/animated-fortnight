@@ -1,8 +1,16 @@
 import { Header } from "@/components/header";
+
 import { Navbar } from "@/components/navbar";
+
 import { Loading } from "@/components/ui/loading";
 
 import { useAuth } from "@/hooks/use-auth";
+
+import { api } from "@/lib/axios";
+
+import { getMemberRole } from "@/utils/auth/get-member-role";
+
+import { isAxiosError } from "axios";
 
 import clsx from "clsx";
 
@@ -19,9 +27,38 @@ export function AppLayout() {
 
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
+    const role = getMemberRole();
+    
+    const isMembersPage = useMatch("/members");
+
     useEffect(() => {
         if (!loading && authenticated === false) {
-            navigate("/");
+            navigate("/", { replace: true });
+        }
+
+        if (role === "MEMBER" && isMembersPage) {
+            navigate("/404", { replace: true });
+        }
+
+        const interceptorId = api.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if (isAxiosError(error)) {
+                    const status = error.response?.status;
+
+                    if (status === 401 || status === 403 || status === 404) {
+                        navigate("/404", { replace: true });
+                    }
+
+                    if (status === 400) {
+                        navigate("/", { replace: true });
+                    }
+                }
+            },
+        )
+
+        return () => {
+            api.interceptors.response.eject(interceptorId);
         }
     }, [authenticated, loading, navigate]);
 

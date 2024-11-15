@@ -12,6 +12,8 @@ import { mapBloodType } from "@/utils/mappings/map-blood-type";
 import { mapHandedness } from "@/utils/mappings/map-handedness";
 import { mapGender } from "@/utils/mappings/map-gender";
 
+import { useState } from "react";
+
 export interface AthleteCardProps {
     athlete: {
         id: string,
@@ -32,20 +34,22 @@ export interface AthleteCardProps {
 }
 
 export function AthleteCard({ athlete }: AthleteCardProps) {
+    const [isAthleteDialogOpen, setIsAthleteDialogOpen] = useState(false);
+
     return (
         <div className="flex flex-col gap-4">
             <div className="flex border border-slate-700 rounded flex-col p-0 relative overflow-hidden">
                 <div className="h-40 w-full relative overflow-hidden">
                     <div className="h-full bg-lime-500">
                         <div className="flex items-center gap-2 absolute top-4 right-4 z-10">
-                            <Dialog>
+                            <Dialog open={isAthleteDialogOpen} onOpenChange={setIsAthleteDialogOpen}>
                                 <DialogTrigger asChild> 
                                     <Button type="button" size="xs" className="px-3">
                                         Editar
                                     </Button>
                                 </DialogTrigger>
 
-                                <AthleteDialog athlete={athlete} />
+                                <AthleteDialog controller={setIsAthleteDialogOpen} athlete={athlete} />
                             </Dialog>
                         </div>
                     </div>

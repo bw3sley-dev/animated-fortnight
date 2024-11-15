@@ -53,6 +53,8 @@ interface MemberTableRowsProps {
 export function MemberTableRow({ member }: MemberTableRowsProps) {
     const [open, setOpen] = useState(false);
 
+    const [isUpdateMemberDialogOpen, setIsUpdateMemberDialogOpen] = useState(false);
+
     const { mutateAsync: removeMemberFn, isPending } = useMutation({
         mutationFn: removeMember,
 
@@ -98,7 +100,7 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
             </TableCell>
 
             <TableCell>
-                <Dialog>
+                <Dialog open={isUpdateMemberDialogOpen} onOpenChange={setIsUpdateMemberDialogOpen}>
                     <DialogTrigger asChild>
                         <div className="group-hover:flex hidden items-center justify-center">
                             <Button type="button" size="md" variant="link" className="gap-3 p-0">
@@ -109,7 +111,7 @@ export function MemberTableRow({ member }: MemberTableRowsProps) {
                         </div>
                     </DialogTrigger>
 
-                    <UpdateMemberDialog member={member} />
+                    <UpdateMemberDialog controller={setIsUpdateMemberDialogOpen} member={member} />
                 </Dialog>
             </TableCell>
 

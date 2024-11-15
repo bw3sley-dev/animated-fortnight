@@ -44,6 +44,8 @@ import { createAccount } from "@/api/create-account";
 import { toast } from "sonner";
 
 import { queryClient } from "@/lib/react-query";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 const newMemberDialogFormSchema = z.object({
     name: z.string().min(1, "O nome é obrigatório"),
@@ -73,7 +75,13 @@ type NewMemberDialogForm = {
     areas: ("UNSPECIFIED" | "PSYCHOLOGY" | "PHYSIOTHERAPY" | "NUTRITION" | "NURSING" | "PSYCHOPEDAGOGY" | "PHYSICAL_EDUCATION")[];
 }
 
-export function NewMemberDialog() {
+interface NewMemberDialogProps {
+    controller: (open: boolean) => void
+}
+
+export function NewMemberDialog({ controller }: NewMemberDialogProps) {
+    const [keepOpen, setKeepOpen] = useState(false);
+
     const { handleSubmit, register, control, reset, formState: { errors, isSubmitting } } = useForm<NewMemberDialogForm>({
         resolver: zodResolver(newMemberDialogFormSchema),
 
@@ -95,6 +103,12 @@ export function NewMemberDialog() {
             queryClient.invalidateQueries({
                 queryKey: ["members"]
             })
+
+            reset();
+
+            if (!keepOpen) {
+                controller(false);
+            }
         }
     })
 
@@ -107,8 +121,6 @@ export function NewMemberDialog() {
                 role: data.role,
                 areas: data.areas
             })
-
-            reset();
         }
 
         catch (error) { errorHandler(error) }
@@ -256,16 +268,24 @@ export function NewMemberDialog() {
             </form>
 
             <DialogFooter>
-                <DialogClose asChild>
-                    <Button type="button" variant="secondary" className="rounded-md" size="sm">
-                        Fechar
-                    </Button>
-                </DialogClose>
+                <div className="flex mr-auto items-center gap-2">
+                    <Switch id="keep-open" checked={keepOpen} onCheckedChange={setKeepOpen} />
 
-                <Button type="submit" form="new-member-form" disabled={isSubmitting} size="sm" variant="primary">
-                    {isSubmitting ? <Loader2 className="size-5 animate-spin" /> : <span>Cadastrar</span>}
-                </Button>
+                    <Label htmlFor="keep-open">Criar mais</Label>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <DialogClose asChild>
+                        <Button type="button" variant="secondary" className="rounded-md" size="sm">
+                            Fechar
+                        </Button>
+                    </DialogClose>
+
+                    <Button type="submit" form="new-member-form" disabled={isSubmitting} size="sm" variant="primary">
+                        {isSubmitting ? <Loader2 className="size-5 animate-spin" /> : <span>Cadastrar</span>}
+                    </Button>
+                </div>
             </DialogFooter>
-        </DialogContent >
+        </DialogContent>
     )
 }

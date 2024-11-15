@@ -65,6 +65,9 @@ type AccountForm = z.infer<typeof accountFormSchema>;
 export function Account() {
     const [date, setDate] = useState<Date | undefined>(new Date());
 
+    const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
+    const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
+
     const { data: profile } = useQuery({
         queryKey: ["profile"],
         queryFn: getProfile
@@ -176,7 +179,7 @@ export function Account() {
                                                         {profile?.email}
                                                     </div>
 
-                                                    <Dialog>
+                                                    <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
                                                         <DialogTrigger asChild>
                                                             <button
                                                                 type="button"
@@ -186,7 +189,7 @@ export function Account() {
                                                             </button>
                                                         </DialogTrigger>
 
-                                                        <AccountEmailDialog email={profile?.email!} />
+                                                        <AccountEmailDialog controller={setIsEmailDialogOpen} email={profile?.email!} />
                                                     </Dialog>
                                                 </div>
                                             </div>
@@ -206,7 +209,7 @@ export function Account() {
                                                         •••••••••
                                                     </div>
 
-                                                    <Dialog>
+                                                    <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
                                                         <DialogTrigger asChild>
                                                             <button
                                                                 type="button"
@@ -216,7 +219,7 @@ export function Account() {
                                                             </button>
                                                         </DialogTrigger>
 
-                                                        <AccountPasswordDialog />
+                                                        <AccountPasswordDialog controller={setIsPasswordDialogOpen} />
                                                     </Dialog>
                                                 </div>
                                             </div>

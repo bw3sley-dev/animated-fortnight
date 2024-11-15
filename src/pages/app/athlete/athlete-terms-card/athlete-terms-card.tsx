@@ -6,6 +6,8 @@ import { Download } from "lucide-react";
 
 import { AthleteTermsDialog } from "./athlete-terms-dialog";
 
+import { useState } from "react";
+
 interface AthleteTermsCardProps {
     isLoading: boolean,
 
@@ -23,6 +25,8 @@ interface AthleteTermsCardProps {
 }
 
 export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
     return (
         <div className="flex border border-slate-700 rounded gap-3 flex-col relative overflow-hidden py-6">
             <div className="flex items-center gap-3 px-6">
@@ -31,7 +35,7 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
 
             <ul className="flex flex-col px-4 list-disc">
                 {isLoading ? <Skeleton className="h-6 m-2" /> : (
-                    <Dialog>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
                             <li className="group py-2 px-3 cursor-pointer text-slate-300 hover:bg-slate-800 rounded flex items-center justify-between transition-colors">
                                 <div className="space-x-4 text-md">
@@ -48,12 +52,12 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
                             </li>
                         </DialogTrigger>
 
-                        <AthleteTermsDialog type="RESPONSIBILITY" data={data} />
+                        <AthleteTermsDialog type="RESPONSIBILITY" controller={setIsDialogOpen} data={data} />
                     </Dialog>
                 )}
 
                 {isLoading ? <Skeleton className="h-6 mb-2 mx-2" /> : (
-                    <Dialog>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
                             <li className="group py-2 px-3 cursor-pointer text-slate-300 hover:bg-slate-800 rounded flex items-center justify-between transition-colors">
                                 <div className="space-x-4 text-md">
@@ -70,7 +74,7 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
                             </li>
                         </DialogTrigger>
                         
-                        <AthleteTermsDialog type="IMAGE" data={data} />
+                        <AthleteTermsDialog type="IMAGE" controller={setIsDialogOpen} data={data} />
                     </Dialog>
                 )}
             </ul>

@@ -92,6 +92,8 @@ type AthleteDialogForm = {
 }
 
 interface AthleteDialogProps {
+    controller: (open: boolean) => void,
+
     athlete: {
         id: string,
     
@@ -111,7 +113,7 @@ interface AthleteDialogProps {
     }
 }
 
-export function AthleteDialog({ athlete }: AthleteDialogProps) {
+export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
     const { athleteId } = useParams();
 
     const [date, setDate] = useState<Date | undefined>(new Date());
@@ -137,6 +139,8 @@ export function AthleteDialog({ athlete }: AthleteDialogProps) {
             queryClient.invalidateQueries({
                 queryKey: ["athletes", athleteId]
             })
+
+            controller(false);
         }
     })
 

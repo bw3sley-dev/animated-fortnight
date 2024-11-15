@@ -32,7 +32,9 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 interface AccountEmailDialogProps {
-    email: string
+    email: string,
+
+    controller: (open: boolean) => void
 }
 
 const accountEmailDialogFormSchema = z.object({
@@ -42,7 +44,7 @@ const accountEmailDialogFormSchema = z.object({
 
 type AccountEmailDialogForm = z.infer<typeof accountEmailDialogFormSchema>;
 
-export function AccountEmailDialog({ email }: AccountEmailDialogProps) {
+export function AccountEmailDialog({ controller, email }: AccountEmailDialogProps) {
     const [isShowingPassword, setIsShowingPassword] = useState(false);
 
     const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm<AccountEmailDialogForm>({
@@ -62,7 +64,9 @@ export function AccountEmailDialog({ email }: AccountEmailDialogProps) {
 
             queryClient.invalidateQueries({
                 queryKey: ["profile"]
-            });
+            })
+
+            controller(false);
         }
     })
 

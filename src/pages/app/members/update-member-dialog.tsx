@@ -66,6 +66,8 @@ const updateMemberDialogFormSchema = z.object({
 type UpdateMemberDialogForm = z.infer<typeof updateMemberDialogFormSchema>;
 
 interface UpdateMemberDialogProps {
+    controller: (open: boolean) => void,
+
     member: {
         id: string,
         name: string,
@@ -76,7 +78,7 @@ interface UpdateMemberDialogProps {
     }
 }
 
-export function UpdateMemberDialog({ member }: UpdateMemberDialogProps) {
+export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogProps) {
     const { handleSubmit, register, control, formState: { errors, isSubmitting } } = useForm<UpdateMemberDialogForm>({
         resolver: zodResolver(updateMemberDialogFormSchema),
 
@@ -98,6 +100,8 @@ export function UpdateMemberDialog({ member }: UpdateMemberDialogProps) {
             queryClient.invalidateQueries({
                 queryKey: ["members"]
             })
+
+            controller(false);
         }
     })
 

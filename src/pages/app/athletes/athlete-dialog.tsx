@@ -47,6 +47,7 @@ import { toast } from "sonner";
 
 import { queryClient } from "@/lib/react-query";
 import { format } from "date-fns";
+import { Switch } from "@/components/ui/switch";
 
 const athleteDialogFormSchema = z.object({
     name: z.string().min(1, "O nome é obrigatório."),
@@ -85,8 +86,14 @@ type AthleteDialogForm = {
     | "none";
 };
 
-export function AthleteDialog() {
+interface AthleteDialogProps {
+    controller: (open: boolean) => void
+}
+
+export function AthleteDialog({ controller }: AthleteDialogProps) {
     const [date, setDate] = useState<Date | undefined>(new Date());
+
+    const [keepOpen, setKeepOpen] = useState(false);
 
     const { register, handleSubmit, setValue, control, reset, formState: { errors, isSubmitting } } = useForm<AthleteDialogForm>({
         resolver: zodResolver(athleteDialogFormSchema),
@@ -111,6 +118,10 @@ export function AthleteDialog() {
             })
 
             reset();
+
+            if (!keepOpen) {
+                controller(false);
+            }
         }
     })
 
@@ -236,7 +247,7 @@ export function AthleteDialog() {
                                         </SelectContent>
                                     </Select>
                                 )}
-                            ></Controller>
+                            />
 
                             {errors.handedness && (
                                 <span className="text-sm font-medium text-red-500">
@@ -333,15 +344,23 @@ export function AthleteDialog() {
             </div>
 
             <DialogFooter>
-                <DialogClose asChild>
-                    <Button type="button" variant="secondary" className="rounded-md" size="sm">
-                        Fechar
-                    </Button>
-                </DialogClose>
+                <div className="flex mr-auto items-center gap-2">
+                    <Switch id="keep-open" checked={keepOpen} onCheckedChange={setKeepOpen} />
 
-                <Button type="submit" form="new-athlete-form" disabled={isSubmitting} size="sm" variant="primary">
-                    {isSubmitting ? <Loader2 className="size-5 animate-spin" /> : <span>Cadastrar</span>}
-                </Button>
+                    <Label htmlFor="keep-open">Criar mais</Label>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <DialogClose asChild>
+                        <Button type="button" variant="secondary" className="rounded-md" size="sm">
+                            Fechar
+                        </Button>
+                    </DialogClose>
+
+                    <Button type="submit" form="new-athlete-form" disabled={isSubmitting} size="sm" variant="primary">
+                        {isSubmitting ? <Loader2 className="size-5 animate-spin" /> : <span>Cadastrar</span>}
+                    </Button>
+                </div>
             </DialogFooter>
         </DialogContent>
     )

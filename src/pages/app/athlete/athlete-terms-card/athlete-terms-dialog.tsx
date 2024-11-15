@@ -18,6 +18,8 @@ import { saveAs } from "file-saver";
 import { Loader2 } from "lucide-react";
 
 interface AthleteTermsDialogProps {
+    controller: (open: boolean) => void,
+
     type: "RESPONSIBILITY" | "IMAGE",
 
     data: {
@@ -33,7 +35,7 @@ interface AthleteTermsDialogProps {
     }
 }
 
-export function AthleteTermsDialog({ type, data }: AthleteTermsDialogProps) {
+export function AthleteTermsDialog({ controller, type, data }: AthleteTermsDialogProps) {
     const [instance, _] = usePDF({ document: <Document /> });
 
     const isLoading = instance.loading;
@@ -62,6 +64,8 @@ export function AthleteTermsDialog({ type, data }: AthleteTermsDialogProps) {
         const fileName = `Documento ${type === "RESPONSIBILITY" ? "de Responsabilidade" : "de Autorização de Imagem"} - T21 Arena Park.pdf`;
 
         saveAs(blob, fileName);
+
+        controller(false);
     }
 
     async function handleDocument() {
@@ -78,6 +82,8 @@ export function AthleteTermsDialog({ type, data }: AthleteTermsDialogProps) {
         const fileName = `Documento ${type === "RESPONSIBILITY" ? "de Responsabilidade" : "de Autorização de Imagem"} de ${data.athlete.name} - T21 Arena Park.pdf`;
 
         saveAs(blob, fileName);
+
+        controller(false);
     }
 
     return (

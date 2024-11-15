@@ -25,8 +25,12 @@ import clsx from "clsx";
 
 import { Plus } from "lucide-react";
 
+import { useState } from "react";
+
 export function Members() {
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [isNewMemberDialogOpen, setIsNewMemberDialogOpen] = useState(false);
 
     const memberName = searchParams.get("memberName");
     const role = searchParams.get("role");
@@ -66,7 +70,7 @@ export function Members() {
                         <div className="flex flex-col lg:flex-row items-center justify-content gap-2">
                             <MemberTableFilters />
 
-                            <Dialog>
+                            <Dialog open={isNewMemberDialogOpen} onOpenChange={setIsNewMemberDialogOpen}>
                                 <DialogTrigger asChild>
                                     <Button type="button" variant="primary" className="w-full lg:w-fit lg:mt-0" size="xs">
                                         <Plus className="size-4" />
@@ -74,7 +78,7 @@ export function Members() {
                                     </Button>
                                 </DialogTrigger>
 
-                                <NewMemberDialog />
+                                <NewMemberDialog controller={setIsNewMemberDialogOpen} />
                             </Dialog>
                         </div>
                         

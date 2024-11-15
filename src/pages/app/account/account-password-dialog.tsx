@@ -27,6 +27,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { z } from "zod";
+
 import { toast } from "sonner";
 
 const accountPasswordFormSchema = z.object({
@@ -40,7 +41,11 @@ const accountPasswordFormSchema = z.object({
 
 type AccountPasswordForm = z.infer<typeof accountPasswordFormSchema>;
 
-export function AccountPasswordDialog() {
+interface AccountPasswordDialogProps {
+    controller: (open: boolean) => void
+}
+
+export function AccountPasswordDialog({ controller }: AccountPasswordDialogProps) {
     const [isShowingCurrentPassword, setIsShowingCurrentPassword] = useState(false);
     const [isShowingNewPassword, setIsShowingNewPassword] = useState(false);
     const [isShowingConfirmPassword, setIsShowingConfirmPassword] = useState(false);
@@ -60,6 +65,8 @@ export function AccountPasswordDialog() {
 
         onSuccess: () => {
             toast.success("Sua senha foi atualizada com sucesso!");
+
+            controller(false);
         }
     })
 

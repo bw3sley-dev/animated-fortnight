@@ -150,7 +150,7 @@ export function AthleteDialog({ controller }: AthleteDialogProps) {
                 <form method="POST" id="new-athlete-form" autoComplete="off" className="flex flex-col gap-4" onSubmit={handleSubmit(handleNewAthlete)}>
                     <div className="flex flex-col gap-4 p-[2px] max-h-80 overflow-y-auto lg:max-h-96 xl:max-h-fit">
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="name" className="text-sm text-slate-400">
+                            <Label htmlFor="name" className="text-sm text-slate-200">
                                 Nome
                             </Label>
 
@@ -173,7 +173,7 @@ export function AthleteDialog({ controller }: AthleteDialogProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="birthDate" className="text-sm text-slate-400">
+                            <Label htmlFor="birthDate" className="text-sm text-slate-200">
                                 Data de nascimento
                             </Label>
 
@@ -218,7 +218,7 @@ export function AthleteDialog({ controller }: AthleteDialogProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="handedness" className="text-sm text-slate-400">
+                            <Label htmlFor="handedness" className="text-sm text-slate-200">
                                 Lateralidade
                             </Label>
 
@@ -257,7 +257,7 @@ export function AthleteDialog({ controller }: AthleteDialogProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="gender" className="text-sm text-slate-400">
+                            <Label htmlFor="gender" className="text-sm text-slate-200">
                                 Sexo
                             </Label>
 
@@ -296,7 +296,7 @@ export function AthleteDialog({ controller }: AthleteDialogProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="bloodType" className="text-sm text-slate-400">
+                            <Label htmlFor="bloodType" className="text-sm text-slate-200">
                                 Tipo sanguíneo
                             </Label>
 

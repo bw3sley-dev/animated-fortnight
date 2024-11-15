@@ -6,20 +6,29 @@ import { ChevronRight } from "lucide-react";
 
 interface FormTabTriggerProps {
     section: {
-        id: string,
-            
-        name: string,
-        description: string,
+        id: number,
+
+        title: string,
         icon: string,
 
         questions: {
-            id: string,
+            id: number,
 
-            name: string,
+            title: string,
+            type:
+            "INPUT" |
+            "CHECKBOX" |
+            "SELECT" |
+            "MULTI_SELECT" |
+            "DATE" |
+            "RADIO",
 
+            description: string | null,
+            observation: string | null,
+            
+            answer: string | string[] | null,
+            
             options?: {
-                id: string,
-
                 label: string,
                 value: string
             }[]
@@ -29,11 +38,11 @@ interface FormTabTriggerProps {
 
 export function FormTabTrigger({ section }: FormTabTriggerProps) {
     return (
-        <TabsTrigger key={section.id} value={section.id} className="space-x-3">
+        <TabsTrigger key={section.id} value={`${section.id}`} className="space-x-3">
             {getIconByName(section.icon)}
 
             <span className="text-start mr-auto text-base hover:text-slate-300 hidden lg:flex flex-1">
-                {section.name}
+                {section.title}
             </span>
 
             <ChevronRight className="size-4 hidden lg:inline-block" />

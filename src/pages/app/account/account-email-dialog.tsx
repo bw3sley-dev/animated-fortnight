@@ -93,7 +93,7 @@ export function AccountEmailDialog({ controller, email }: AccountEmailDialogProp
 
             <form method="POST" id="email-form" className="flex flex-col gap-4" onSubmit={handleSubmit(handleEmailChange)}>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="email" className="text-sm text-slate-400">
+                    <Label htmlFor="email" className="text-sm text-slate-200">
                         Novo e-mail
                     </Label>
 
@@ -117,7 +117,7 @@ export function AccountEmailDialog({ controller, email }: AccountEmailDialogProp
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="password" className="text-sm text-slate-400">
+                    <Label htmlFor="password" className="text-sm text-slate-200">
                         Senha
                     </Label>
 

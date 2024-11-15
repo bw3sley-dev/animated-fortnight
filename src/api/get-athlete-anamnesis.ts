@@ -1,68 +1,59 @@
-// import { api } from "@/lib/axios";
+import { api } from "@/lib/axios";
 
 export type GetAthleteAnamnesisParams = {
     athleteId: string
 }
 
 export type GetAthleteAnamnesisResponse = {
-    anamnesis: {
+    form: {
+        id: string,
+
+        title: string,
+        slug: string,
+
         sections: {
-            id: string,
-            
-            name: string,
-            description: string,
+            id: number,
+
+            title: string,
             icon: string,
 
             questions: {
-                id: string,
+                id: number,
 
-                name: string,
+                title: string,
+                type:
+                "INPUT" |
+                "CHECKBOX" |
+                "SELECT" |
+                "MULTI_SELECT" |
+                "DATE" |
+                "RADIO",
+
+                description: string | null,
+                observation: string | null,
+
+                answer: string | string[] | null,
 
                 options?: {
-                    id: string,
-
                     label: string,
                     value: string
                 }[]
             }[]
         }[]
     },
-    
+
     athlete: {
+        id: string,
+
         name: string
     }
 }
 
+
 export async function getAthleteAnamnesis({ athleteId }: GetAthleteAnamnesisParams) {
-    // const response = await api.get<GetAthleteAnamnesisResponse>(`/athletes/${athleteId}/anamnesis`);
+    const slug = "anamnesis";
 
-    const response: GetAthleteAnamnesisResponse = {
-        anamnesis: {
-            sections: [{
-                id: crypto.randomUUID(),
-                
-                name: "Utilizou o nome corretamente",
-                description: "Esse utilizou legal",
-                icon: "MapPin",
-    
-                questions: [{
-                    id: crypto.randomUUID(),
-    
-                    name: "sabe de nada",
-    
-                    options: [{
-                        id: crypto.randomUUID(),
-                        label: "Não",
-                        value: "no"
-                    }]
-                }]
-            }]
-        },
-        
-        athlete: {
-            name: "Wesley Bernardes"
-        }
-    }
+    const response = await api.get<GetAthleteAnamnesisResponse>(`/athletes/${athleteId}/forms/${slug}`);
 
-    return response;
+    return response.data;
 }

@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
             },
 
             {
-                path: "/athletes/:athleteId/anamnesis",
+                path: "/athletes/:athleteId/forms/anamnesis",
                 element: <Form />
             },
 

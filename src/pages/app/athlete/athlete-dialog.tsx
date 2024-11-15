@@ -169,7 +169,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
 
             <form method="POST" id="athlete-form" className="flex flex-col gap-4" onSubmit={handleSubmit(handleAthleteEdition)}>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="name" className="text-sm text-slate-400">
+                    <Label htmlFor="name" className="text-sm text-slate-200">
                         Nome
                     </Label>
 
@@ -192,7 +192,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="birthDate" className="text-sm text-slate-400">
+                    <Label htmlFor="birthDate" className="text-sm text-slate-200">
                         Data de nascimento
                     </Label>
 
@@ -231,7 +231,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="handedness" className="text-sm text-slate-400">
+                    <Label htmlFor="handedness" className="text-sm text-slate-200">
                         Lateralidade
                     </Label>
 
@@ -261,7 +261,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="gender" className="text-sm text-slate-400">
+                    <Label htmlFor="gender" className="text-sm text-slate-200">
                         Genêro
                     </Label>
 
@@ -291,7 +291,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="bloodType" className="text-sm text-slate-400">
+                    <Label htmlFor="bloodType" className="text-sm text-slate-200">
                         Tipo sanguíneo
                     </Label>
 

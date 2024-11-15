@@ -90,7 +90,7 @@ export function AccountPasswordDialog({ controller }: AccountPasswordDialogProps
 
             <form method="POST" id="password-form" className="flex flex-col gap-4" onSubmit={handleSubmit(handlePasswordChange)}>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="currentPassword" className="text-sm text-slate-400">
+                    <Label htmlFor="currentPassword" className="text-sm text-slate-200">
                         Senha atual
                     </Label>
 
@@ -132,7 +132,7 @@ export function AccountPasswordDialog({ controller }: AccountPasswordDialogProps
                 <Separator className="my-3" />
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="newPassword" className="text-sm text-slate-400">
+                    <Label htmlFor="newPassword" className="text-sm text-slate-200">
                         Nova senha
                     </Label>
 
@@ -173,7 +173,7 @@ export function AccountPasswordDialog({ controller }: AccountPasswordDialogProps
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="confirmPassword" className="text-sm text-slate-400">
+                    <Label htmlFor="confirmPassword" className="text-sm text-slate-200">
                         Confirmar nova senha
                     </Label>
 

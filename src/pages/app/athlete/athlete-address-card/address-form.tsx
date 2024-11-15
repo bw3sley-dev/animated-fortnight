@@ -86,7 +86,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
         <form method="POST" onSubmit={handleSubmit(handleAddressUpdate)} className="flex flex-col gap-6 lg:gap-y-6 lg:gap-x-6">
             <section className="grid grid-cols-1 lg:grid-flow-col auto-cols-fr gap-4 lg:grid-cols-[180px_1fr]">
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="postalCode" className="inline-block text-slate-400">
+                    <Label htmlFor="postalCode" className="text-sm text-slate-200">
                         CEP
                     </Label>
 
@@ -104,7 +104,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
                 </div>
                 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="street" className="inline-block text-slate-400">
+                    <Label htmlFor="street" className="text-sm text-slate-200">
                         Rua
                     </Label>
 
@@ -122,7 +122,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
 
             <section className="grid grid-cols-1 lg:grid-flow-col auto-cols-fr gap-4 lg:grid-cols-[180px_1fr]">
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="number" className="inline-block text-slate-400">
+                    <Label htmlFor="number" className="text-sm text-slate-200">
                         Número
                     </Label>
 
@@ -138,7 +138,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="complement" className="inline-block text-slate-400">
+                    <Label htmlFor="complement" className="text-sm text-slate-200">
                         Complemento
                     </Label>
 
@@ -156,7 +156,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
 
             <section className="grid grid-cols-1 lg:grid-flow-col auto-cols-fr gap-4 lg:grid-cols-[1fr_1fr_80px]">
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="neighborhood" className="inline-block text-slate-400">
+                    <Label htmlFor="neighborhood" className="text-sm text-slate-200">
                         Bairro
                     </Label>
 
@@ -172,7 +172,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="city" className="inline-block text-slate-400">
+                    <Label htmlFor="city" className="text-sm text-slate-200">
                         Cidade
                     </Label>
 
@@ -188,7 +188,7 @@ export function AddressForm({ athleteId, postalCode, street, city, complement, c
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="uf" className="inline-block text-slate-400">
+                    <Label htmlFor="uf" className="text-sm text-slate-200">
                         UF
                     </Label>
 

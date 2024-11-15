@@ -130,7 +130,7 @@ export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogPro
 
             <form method="POST" id="update-member-form" className="flex flex-col gap-4" onSubmit={handleSubmit(handleMemberEdition)}>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="name" className="text-sm text-slate-400">
+                    <Label htmlFor="name" className="text-sm text-slate-200">
                         Nome
                     </Label>
 
@@ -153,7 +153,7 @@ export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogPro
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="email" className="text-sm text-slate-400">
+                    <Label htmlFor="email" className="text-sm text-slate-200">
                         E-mail
                     </Label>
 
@@ -176,7 +176,7 @@ export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogPro
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="phone" className="text-sm text-slate-400">
+                    <Label htmlFor="phone" className="text-sm text-slate-200">
                         Telefone (opcional)
                     </Label>
 
@@ -196,7 +196,7 @@ export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogPro
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="role" className="text-sm text-slate-400">Tipo de voluntário</Label>
+                    <Label htmlFor="role" className="text-sm text-slate-200">Tipo de voluntário</Label>
 
                     <Controller
                         name="role"
@@ -229,7 +229,7 @@ export function UpdateMemberDialog({ controller, member }: UpdateMemberDialogPro
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="areas" className="text-sm text-slate-400">
+                    <Label htmlFor="areas" className="text-sm text-slate-200">
                         Área
                     </Label>
 

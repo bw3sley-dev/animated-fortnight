@@ -6,19 +6,22 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { getAthleteAnamnesis } from "@/api/get-athlete-anamnesis";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { Tabs, TabsList } from "@/components/ui/tabs";
 
 import { FormTabTrigger } from "./form-tab-trigger";
-import { FormTabTriggerSkeleton } from "./form-tab-trigger-skeleton";
 import { FormTabContent } from "./form-tab-content";
+
+import { FormTabTriggerSkeleton } from "./form-tab-trigger-skeleton";
 import { FormTabContentSkeleton } from "./form-tab-content-skeleton";
 
 export function Form() {
     const { athleteId, slug } = useParams();
 
     const navigate = useNavigate();
+
+    const [tabValue, setTabValue] = useState("");
 
     useEffect(() => {
         if (!athleteId) {
@@ -36,7 +39,11 @@ export function Form() {
         enabled: Boolean(athleteId)
     })
 
-    const defaultTabValue = data && data.anamnesis.sections[0].id;
+    useEffect(() => {
+        if (data) {
+            setTabValue(`${data.form.sections[0].id}`);
+        }
+    }, [data])
 
     return (
         <>
@@ -52,19 +59,31 @@ export function Form() {
                         </p>
                     </div>
 
-                    {data?.anamnesis && (
-                        <Tabs defaultValue={isLoading ? "loading" : defaultTabValue} className="grid lg:grid-cols-[400px_1fr] items-start lg:gap-8">
+                    {isLoading || !data ? (
+                        <Tabs defaultValue="loading" className="grid lg:grid-cols-[400px_1fr] items-start lg:gap-8">
+                            <TabsList>
+                                <aside className="flex lg:flex-col">
+                                    <FormTabTriggerSkeleton />
+                                </aside>
+                            </TabsList>
+
+                            <main className="mt-10 lg:mt-0">
+                                <FormTabContentSkeleton />
+                            </main>
+                        </Tabs>
+                    ) : (
+                        <Tabs value={tabValue} onValueChange={setTabValue} className="grid lg:grid-cols-[400px_1fr] items-start lg:gap-8">
                             <TabsList asChild>
                                 <aside className="flex lg:flex-col">
-                                    {isLoading ? <FormTabTriggerSkeleton /> : data.anamnesis.sections.map(section => (
+                                    {data.form.sections.map(section => (
                                         <FormTabTrigger key={section.id} section={section} />
                                     ))}
                                 </aside>
                             </TabsList>
 
                             <main className="mt-10 lg:mt-0">
-                                {isLoading ? <FormTabContentSkeleton /> : data.anamnesis.sections.map(section => (
-                                    <FormTabContent key={section.id} section={section} />
+                                {data.form.sections.map(section => (
+                                    <FormTabContent key={section.id} athleteId={athleteId} section={section} />
                                 ))}
                             </main>
                         </Tabs>

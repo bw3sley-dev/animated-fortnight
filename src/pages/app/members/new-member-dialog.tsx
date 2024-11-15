@@ -135,7 +135,7 @@ export function NewMemberDialog({ controller }: NewMemberDialogProps) {
 
             <form method="POST" id="new-member-form" className="flex flex-col gap-4" onSubmit={handleSubmit(handleNewMember)}>
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="name" className="text-sm text-slate-400">
+                    <Label htmlFor="name" className="text-sm text-slate-200">
                         Nome
                     </Label>
 
@@ -158,7 +158,7 @@ export function NewMemberDialog({ controller }: NewMemberDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="email" className="text-sm text-slate-400">
+                    <Label htmlFor="email" className="text-sm text-slate-200">
                         E-mail
                     </Label>
 
@@ -181,7 +181,7 @@ export function NewMemberDialog({ controller }: NewMemberDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="phone" className="text-sm text-slate-400">
+                    <Label htmlFor="phone" className="text-sm text-slate-200">
                         Telefone (opcional)
                     </Label>
 
@@ -201,7 +201,7 @@ export function NewMemberDialog({ controller }: NewMemberDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="role" className="text-sm text-slate-400">Tipo de voluntário</Label>
+                    <Label htmlFor="role" className="text-sm text-slate-200">Tipo de voluntário</Label>
 
                     <Controller
                         name="role"
@@ -238,7 +238,7 @@ export function NewMemberDialog({ controller }: NewMemberDialogProps) {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <Label htmlFor="areas" className="text-sm text-slate-400">
+                    <Label htmlFor="areas" className="text-sm text-slate-200">
                         Área
                     </Label>
 

@@ -122,7 +122,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
             >
                 <div className="grid lg:grid-cols-[1fr_1fr] gap-4 lg:gap-y-6 lg:gap-x-6">
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="name" className="text-sm text-slate-400">
+                        <Label htmlFor="name" className="text-sm text-slate-200">
                             Nome
                         </Label>
 
@@ -139,7 +139,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="email" className="text-sm text-slate-400">
+                        <Label htmlFor="email" className="text-sm text-slate-200">
                             Email
                         </Label>
 
@@ -156,7 +156,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="rg" className="text-sm text-slate-400">
+                        <Label htmlFor="rg" className="text-sm text-slate-200">
                             RG
                         </Label>
 
@@ -175,7 +175,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="cpf" className="text-sm text-slate-400">
+                        <Label htmlFor="cpf" className="text-sm text-slate-200">
                             CPF
                         </Label>
 
@@ -196,7 +196,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
                     <div className="flex flex-col gap-2">
                         <Label
                             htmlFor="relationshipDegree"
-                            className="text-sm text-slate-400"
+                            className="text-sm text-slate-200"
                         >
                             Grau de parentesco
                         </Label>
@@ -216,7 +216,7 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
                     <div className="flex flex-col gap-2">
                         <Label
                             htmlFor="gender"
-                            className="text-sm text-slate-400"
+                            className="text-sm text-slate-200"
                         >
                             Gênero
                         </Label>

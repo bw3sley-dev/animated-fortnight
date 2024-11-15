@@ -24,7 +24,7 @@ export function AthleteAnamnesisCard({ athleteId, anamnesis }: AnamnesisCardProp
                     <h2 className="font-bold text-xl">Anamnese do atleta</h2>
 
                     {anamnesis.id && (
-                        <Link to={`/athletes/${athleteId}/anamnesis`}>
+                        <Link to={`/athletes/${athleteId}/forms/anamnesis`}>
                             <div className="font-bold inline-flex justify-center items-center gap-2 flex-shrink-0 text-sm text-lime-500 cursor-pointer">
                                 Visualizar Anamnese
                                 <ArrowRight className="size-4" />

@@ -123,12 +123,12 @@ export function SignIn() {
                             )}
                         </div>
 
-                        {/* <a
+                        <a
                             href="/forgot"
                             className="text-sm w-fit font-medium text-lime-400 transition hover:brightness-125"
                         >
                             Esqueci minha senha
-                        </a> */}
+                        </a>
                     </div>
 
                     <Button type="submit" variant="primary" size="lg">

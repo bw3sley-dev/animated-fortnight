@@ -6,8 +6,5 @@ export type ResetPasswordBody = {
 }
 
 export async function resetPassword({ code, password }: ResetPasswordBody) {
-    await api.patch("/password/reset", {
-        code,
-        password
-    })
+    await api.post("/password/reset", { code, password });
 }

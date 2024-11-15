@@ -16,7 +16,7 @@ import { Helmet } from "react-helmet-async";
 
 import { useForm } from "react-hook-form";
 
-import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 import { z } from "zod";
 
@@ -27,8 +27,6 @@ const requestPasswordResetFormSchema = z.object({
 type RequestPasswordResetForm = z.infer<typeof requestPasswordResetFormSchema>;
 
 export function RequestPasswordReset() {
-    const navigate = useNavigate();
-
     const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm<RequestPasswordResetForm>({
         resolver: zodResolver(requestPasswordResetFormSchema)
     })
@@ -39,9 +37,14 @@ export function RequestPasswordReset() {
 
     async function handleRequestPasswordReset(data: RequestPasswordResetForm) {
         try {
-            // await requestPasswordResetFn({ email: data.email });
-            
-            navigate("/new-password");
+            await requestPasswordResetFn({ email: data.email });
+        
+            toast.success("Enviamos um link de recuperação para seu e-mail.", {
+                action: {
+                    label: "Reenviar",
+                    onClick: () => requestPasswordResetFn({ email: data.email })
+                }
+            })
         }
 
         catch (error) { errorHandler(error); }

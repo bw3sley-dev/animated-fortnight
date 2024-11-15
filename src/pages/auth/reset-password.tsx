@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useMutation } from "@tanstack/react-query";
 
-import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 import { useEffect, useState } from "react";
 
@@ -19,6 +19,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 import { z } from "zod";
 
@@ -36,19 +37,9 @@ export function ResetPassword() {
     const [isShowingPassword, setIsShowingPassword] = useState(false);
     const [isShowingConfirmPassword, setIsShowingConfirmPassword] = useState(false);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const code = searchParams.get("code");
-
-        // const isOTP = /^d{6}$/; 
-
-        // if (!code || isOTP.test(code)) {
-        //     navigate("/");
-        // }
-    }, [searchParams, navigate]);
 
     const {
         handleSubmit,
@@ -62,19 +53,35 @@ export function ResetPassword() {
             password: "",
             confirmPassword: ""
         }
-    });
+    })
+
+    useEffect(() => {
+        const code = searchParams.get("code");
+
+        if (!code) {
+            return navigate("/");
+        }
+    }, [])
 
     const { mutateAsync: resetPasswordFn } = useMutation({
         mutationFn: resetPassword,
-    });
+
+        onSuccess: () => {
+            toast.success("Sua senha foi alterada com sucesso!", {
+                onAutoClose: () => navigate("/")
+            })
+        }
+    })
 
     async function handleResetPassword(data: ResetPasswordForm) {
         try {
             const code = searchParams.get("code");
 
-            // await resetPasswordFn({ code, password: data.password });
+            if (code) {
+                await resetPasswordFn({ code, password: data.password });
 
-            navigate("/home");
+                navigate("/home");
+            }
         } catch (error) {
             errorHandler(error);
         }

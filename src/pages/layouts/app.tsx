@@ -5,10 +5,9 @@ import { Navbar } from "@/components/navbar";
 import { Loading } from "@/components/ui/loading";
 
 import { useAuth } from "@/hooks/use-auth";
+import { usePermission } from "@/hooks/use-permission";
 
 import { api } from "@/lib/axios";
-
-import { getMemberRole } from "@/utils/auth/get-member-role";
 
 import { isAxiosError } from "axios";
 
@@ -23,20 +22,20 @@ export function AppLayout() {
 
     const match = useMatch("/athletes/:id/anamnesis");
 
+    const isMembersPage = useMatch("/members");
+
+    const hasAbilityTo = usePermission({ permission: "view:members-page" });
+
     const { authenticated, loading } = useAuth();
 
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-
-    const role = getMemberRole();
-    
-    const isMembersPage = useMatch("/members");
 
     useEffect(() => {
         if (!loading && authenticated === false) {
             navigate("/", { replace: true });
         }
 
-        if (role === "MEMBER" && isMembersPage) {
+        if (isMembersPage && !hasAbilityTo) {
             navigate("/404", { replace: true });
         }
 
@@ -56,7 +55,7 @@ export function AppLayout() {
         return () => {
             api.interceptors.response.eject(interceptorId);
         }
-    }, [authenticated, loading, navigate]);
+    }, [authenticated, loading, navigate, isMembersPage]);
 
     if (loading) {
         return <Loading />;

@@ -23,7 +23,7 @@ import { getNameInitials } from "@/utils/get-name-initials";
 
 import { Skeleton } from "./ui/skeleton";
 
-import { getMemberRole } from "@/utils/auth/get-member-role";
+import { usePermission } from "@/hooks/use-permission";
 
 export function AccountMenu() {
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ export function AccountMenu() {
         },
     })
 
-    const role = getMemberRole();
+    const hasAbilityTo = usePermission({ permission: "view:members-page" });
 
     const nameInitials = isLoadingProfile ? <Loader2 className="text-slate-400 size-5 animate-spin" /> : getNameInitials(profile?.name!);
 
@@ -75,7 +75,7 @@ export function AccountMenu() {
                     </div>
                 </div>
 
-                {role === "ADMIN" && (
+                {hasAbilityTo && (
                     <>
                         <DropdownMenuSeparator className="bg-slate-700" />
 

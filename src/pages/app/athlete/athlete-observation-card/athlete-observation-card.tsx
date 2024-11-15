@@ -29,7 +29,7 @@ import { queryClient } from "@/lib/react-query";
 
 import { AthleteObservation } from "./athlete-observation";
 
-import { getMemberAreas } from "@/utils/auth/get-member-areas";
+import { usePermission } from "@/hooks/use-permission";
 
 const athleteThreadFormSchema = z.object({
     content: z.string().min(1, "O campo de observação não pode estar vazio")
@@ -43,10 +43,6 @@ interface AthleteThreadCardProps {
 
 export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
     const [activeArea, setActiveArea] = useState<string>("PSYCHOLOGY");
-
-    const userAreas = getMemberAreas();
-    
-    const hasAccessToArea = userAreas.includes(activeArea);
 
     const { handleSubmit, control, reset, formState: { errors } } = useForm<AthleteThreadForm>({
         resolver: zodResolver(athleteThreadFormSchema),
@@ -86,6 +82,8 @@ export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
         catch (error) { errorHandler(error) }
     }
 
+    const hasAbilityTo = usePermission({ permission: "create:observation", area: activeArea });
+
     return (
         <div className="flex flex-col bg-slate-800 border border-slate-700 rounded p-6 relative gap-6">
             <div className="flex items-start gap-4">
@@ -107,17 +105,26 @@ export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
                 onValueChange={(value) => setActiveArea(value)}
                 className="bg-slate-900 border border-slate-700 rounded-md overflow-hidden"
             >
-                <Tabs.List className="flex h-12">
-                    {["PSYCHOLOGY", "NUTRITION", "PHYSIOTHERAPY", "NURSING", "PSYCHOPEDAGOGY", "PHYSICAL_EDUCATION"].map((area) => (
-                        <Tabs.Trigger
-                            key={area}
-                            value={area}
-                            className="flex items-center justify-center text-nowrap flex-1 text-sm lg:py-[.875rem] lg:px-6 transition-colors text-slate-300 font-normal data-[state=active]:font-semibold data-[state=active]:text-slate-200 data-[state=active]:bg-slate-800/80 [&[data-state=active]>svg]:text-lime-500 data-[state=active]:border-b-2 data-[state=active]:border-b-lime-500"
-                        >
-                            {mapArea(area)}
-                        </Tabs.Trigger>
-                    ))}
-                </Tabs.List>
+                <div className="hover:overflow-x-auto scrollbar-custom">
+                    <Tabs.List className="flex h-12 flex-nowrap">
+                        {[
+                            "PSYCHOLOGY",
+                            "NUTRITION",
+                            "PHYSIOTHERAPY",
+                            "NURSING",
+                            "PSYCHOPEDAGOGY",
+                            "PHYSICAL_EDUCATION",
+                        ].map((area) => (
+                            <Tabs.Trigger
+                                key={area}
+                                value={area}
+                                className="flex-shrink-0 flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm lg:py-3 lg:px-6 transition-colors text-slate-300 font-normal data-[state=active]:font-semibold data-[state=active]:text-slate-200 data-[state=active]:bg-slate-800/80 data-[state=active]:border-b-2 data-[state=active]:border-b-lime-500"
+                            >
+                                {mapArea(area)}
+                            </Tabs.Trigger>
+                        ))}
+                    </Tabs.List>
+                </div>
 
                 <div className="border-t border-slate-700 bg-slate-900">
                     {["PSYCHOLOGY", "NUTRITION", "PHYSIOTHERAPY", "NURSING", "PSYCHOPEDAGOGY", "PHYSICAL_EDUCATION"].map((area) => (
@@ -133,7 +140,7 @@ export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
                                     render={({ field }) => (
                                         <Textarea
                                             {...field}
-                                            disabled={!hasAccessToArea}
+                                            disabled={!hasAbilityTo}
                                             placeholder={`Digite uma observação para ${mapArea(area).toLowerCase()}...`}
                                             className="bg-slate-800 placeholder:text-slate-400"
                                         />
@@ -162,8 +169,8 @@ export function AthleteObservationCard({ athleteId }: AthleteThreadCardProps) {
                 </div>
 
                 {threads && threads.thread && threads.thread.observations.length > 0 && (
-                    <AthleteObservation 
-                        threads={threads} 
+                    <AthleteObservation
+                        threads={threads}
                         area={activeArea}
                         athleteId={athleteId}
                     />

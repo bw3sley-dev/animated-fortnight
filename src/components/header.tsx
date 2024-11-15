@@ -43,8 +43,12 @@ export function Header({
                         <ChevronLeft className="size-5" color="#C4C4CC" />
                     </button>
 
-                    <Link to="/home" className="font-bold font-error text-xl">
-                        T21 Arena Park
+                    <Link to="/home" className="flex items-center gap-3">
+                        <img src="/logo.svg" className="size-8" alt="" />
+
+                        <strong className="font-bold font-error text-xl">
+                            T21 Arena Park
+                        </strong>
                     </Link>
                 </div>
             ) : (
@@ -70,8 +74,12 @@ export function Header({
                             </button>
                         </DropdownMenuTrigger>
 
-                        <Link to="/home" className="font-bold font-error text-xl">
-                            T21 Arena Park
+                        <Link to="/home" className="flex items-center gap-3">
+                            <img src="/logo.svg" className="size-8" alt="" />
+
+                            <strong className="font-bold font-error text-xl">
+                                T21 Arena Park
+                            </strong>
                         </Link>
                     </div>
 

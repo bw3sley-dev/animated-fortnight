@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 
 import { errorHandler } from "@/error-handler";
+import { queryClient } from "@/lib/react-query";
 
 import { formatCpf } from "@/utils/formatters/format-cpf";
 import { formatRg } from "@/utils/formatters/format-rg";
@@ -74,6 +75,10 @@ export function AthleteGuardianCard({ athleteId, guardian }: GuardianCardProps) 
 
         onSuccess: () => {
             toast.success("Responsável do atualizado com sucesso!");
+
+            queryClient.invalidateQueries({
+                queryKey: ["athletes", athleteId]
+            })
         }
     })
 

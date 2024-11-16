@@ -25,7 +25,8 @@ interface AthleteTermsCardProps {
 }
 
 export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isResponsibilityDialogOpen, setIsResponsibilityDialogOpen] = useState(false);
+    const [isImageDialogOpen, setIsImageDialogOpen] = useState(false);
 
     return (
         <div className="flex border border-slate-700 rounded gap-3 flex-col relative overflow-hidden py-6">
@@ -35,7 +36,7 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
 
             <ul className="flex flex-col px-4 list-disc">
                 {isLoading ? <Skeleton className="h-6 m-2" /> : (
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <Dialog open={isResponsibilityDialogOpen} onOpenChange={setIsResponsibilityDialogOpen}>
                         <DialogTrigger asChild>
                             <li className="group py-2 px-3 cursor-pointer text-slate-300 hover:bg-slate-800 rounded flex items-center justify-between transition-colors">
                                 <div className="space-x-4 text-md">
@@ -52,12 +53,12 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
                             </li>
                         </DialogTrigger>
 
-                        <AthleteTermsDialog type="RESPONSIBILITY" controller={setIsDialogOpen} data={data} />
+                        <AthleteTermsDialog key="RESPONSIBILITY" type="RESPONSIBILITY" controller={setIsResponsibilityDialogOpen} data={data} />
                     </Dialog>
                 )}
 
                 {isLoading ? <Skeleton className="h-6 mb-2 mx-2" /> : (
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <Dialog open={isImageDialogOpen} onOpenChange={setIsImageDialogOpen}>
                         <DialogTrigger asChild>
                             <li className="group py-2 px-3 cursor-pointer text-slate-300 hover:bg-slate-800 rounded flex items-center justify-between transition-colors">
                                 <div className="space-x-4 text-md">
@@ -74,7 +75,7 @@ export function AthleteTermsCard({ isLoading, data }: AthleteTermsCardProps) {
                             </li>
                         </DialogTrigger>
                         
-                        <AthleteTermsDialog type="IMAGE" controller={setIsDialogOpen} data={data} />
+                        <AthleteTermsDialog key="IMAGE" type="IMAGE" controller={setIsImageDialogOpen} data={data} />
                     </Dialog>
                 )}
             </ul>

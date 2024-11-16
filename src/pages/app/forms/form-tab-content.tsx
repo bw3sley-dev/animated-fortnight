@@ -15,7 +15,8 @@ import { useMutation } from "@tanstack/react-query";
 import { updateAthleteAnamnesis } from "@/api/update-athlete-anamnesis";
 
 import { errorHandler } from "@/error-handler";
-import { queryClient } from "@/lib/react-query";
+
+import { toast } from "sonner";
 
 interface FormTabContentProps {
     section: {
@@ -68,9 +69,7 @@ export function FormTabContent({ athleteId, section }: FormTabContentProps) {
         mutationFn: updateAthleteAnamnesis,
 
         onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ["athlete-anamnesis", athleteId]
-            })
+            toast.success("Anamnese atualizada com sucesso!");
         }
     })
 

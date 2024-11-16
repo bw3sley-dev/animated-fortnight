@@ -103,7 +103,7 @@ export function AthleteTermsDialog({ controller, type, data }: AthleteTermsDialo
                 ) : (
                     <PDFViewer width="100%" height="400" showToolbar={false}>
                         <Document>
-                            {type === "RESPONSIBILITY" ? <ResponsibilityDocument data={data} /> : <ImageAuthorizationDocument data={data} />}
+                            {type === "RESPONSIBILITY" ? <ResponsibilityDocument key="RESPONSIBILITY" data={data} /> : <ImageAuthorizationDocument key="IMAGE" data={data} />}
                         </Document>
                     </PDFViewer>
                 )}

@@ -80,13 +80,13 @@ export function AthleteAIObservationCard({ data }: AthleteIAObservationCardProps
                         type="button"
                         variant="primary"
                         size="md"
-                        disabled={data.anamnesis.progress < 90}
+                        disabled={data.anamnesis.progress < 20}
                         onClick={() => handleNewIAObservation(data.athlete.id)}
                     >
                         <span>Gerar observação</span>
                     </Button>
 
-                    {data.anamnesis.progress < 90 && <span className="text-sm text-slate-400">Você precisa completar 90% ou mais da anamnese antes</span>}
+                    {data.anamnesis.progress < 20 && <span className="text-sm text-slate-400">Você precisa completar 90% ou mais da anamnese antes</span>}
                 </div>
             )}
         </div>

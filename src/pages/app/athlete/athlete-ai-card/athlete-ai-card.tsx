@@ -3,6 +3,7 @@ import { generateAIObservation } from "@/api/generate-ai-observation";
 import { Button } from "@/components/ui/button";
 
 import { errorHandler } from "@/error-handler";
+
 import { queryClient } from "@/lib/react-query";
 
 import { useMutation } from "@tanstack/react-query";
@@ -80,13 +81,13 @@ export function AthleteAIObservationCard({ data }: AthleteIAObservationCardProps
                         type="button"
                         variant="primary"
                         size="md"
-                        disabled={data.anamnesis.progress < 20}
+                        disabled={data.anamnesis.progress < 80}
                         onClick={() => handleNewIAObservation(data.athlete.id)}
                     >
                         <span>Gerar observação</span>
                     </Button>
 
-                    {data.anamnesis.progress < 20 && <span className="text-sm text-slate-400">Você precisa completar 90% ou mais da anamnese antes</span>}
+                    {data.anamnesis.progress < 80 && <span className="text-sm text-slate-400">Você precisa completar 80% ou mais da anamnese antes</span>}
                 </div>
             )}
         </div>

@@ -66,7 +66,7 @@ export function AthleteAIObservationCard({ data }: AthleteIAObservationCardProps
                     </div>
 
                     <p className="text-slate-400 text-md text-justify">
-                        A IA analisará os dados preenchidos na anamnese para criar uma observação personalizada sobre o atleta. Certifique-se de que a anamnese esteja pelo menos 90% completa para habilitar esta funcionalidade.
+                        A IA analisará os dados preenchidos na anamnese para criar uma observação personalizada sobre o atleta. Certifique-se de que a anamnese esteja pelo menos 80% completa para habilitar esta funcionalidade.
                     </p>
                 </div>
             </div>

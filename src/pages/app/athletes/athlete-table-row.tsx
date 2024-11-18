@@ -96,7 +96,7 @@ export function AthleteTableRow({ athlete }: AthleteTableRowProps) {
                 </div>
             </TableCell>
 
-            <TableCell className="text-slate-300">
+            <TableCell className="text-slate-300 cursor-help">
                 <time dateTime={athlete.birthDate} title={`Nascido em ${athlete.birthDate}`}>
                     {athlete.age} anos
                 </time>

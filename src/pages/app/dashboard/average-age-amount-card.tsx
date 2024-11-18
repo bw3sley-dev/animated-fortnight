@@ -25,7 +25,7 @@ export function AverageAgeAmountCard() {
             <CardContent className="space-y-1">
                 {averageAgeAmount ? (
                     <span className="text-2xl font-bold tracking-tight">
-                        {averageAgeAmount.amount.toLocaleString('pt-BR')}
+                        {averageAgeAmount.amount.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
                     </span>
                 ) : (
                     <MetricCardSkeleton />

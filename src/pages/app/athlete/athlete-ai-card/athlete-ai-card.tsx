@@ -8,7 +8,7 @@ import { queryClient } from "@/lib/react-query";
 
 import { useMutation } from "@tanstack/react-query";
 
-import { RotateCcw, WandSparkles } from "lucide-react";
+import { Loader2, RotateCcw, WandSparkles } from "lucide-react";
 
 import { toast } from "sonner";
 
@@ -26,7 +26,7 @@ export type AthleteIAObservationCardProps = {
 }
 
 export function AthleteAIObservationCard({ data }: AthleteIAObservationCardProps) {
-    const { mutateAsync: generateAIObservationFn } = useMutation({
+    const { mutateAsync: generateAIObservationFn, isPending: isGeneratingAIObservation } = useMutation({
         mutationFn: generateAIObservation,
 
         onSuccess: () => {
@@ -84,7 +84,7 @@ export function AthleteAIObservationCard({ data }: AthleteIAObservationCardProps
                         disabled={data.anamnesis.progress < 80}
                         onClick={() => handleNewIAObservation(data.athlete.id)}
                     >
-                        <span>Gerar observação</span>
+                        {isGeneratingAIObservation ? <Loader2 className="size-5" /> : <span>Gerar observação</span>}
                     </Button>
 
                     {data.anamnesis.progress < 80 && <span className="text-sm text-slate-400">Você precisa completar 80% ou mais da anamnese antes</span>}

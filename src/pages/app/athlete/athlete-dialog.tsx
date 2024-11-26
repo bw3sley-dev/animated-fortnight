@@ -249,7 +249,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="none">Selecione uma opção</SelectItem>
+                                    <SelectItem value="none" disabled>Selecione uma opção</SelectItem>
 
                                     <SelectItem value="RIGHT">Destro</SelectItem>
 
@@ -279,7 +279,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="none">Selecione uma opção</SelectItem>
+                                    <SelectItem value="none" disabled>Selecione uma opção</SelectItem>
 
                                     <SelectItem value="MALE">Masculino</SelectItem>
 
@@ -309,7 +309,7 @@ export function AthleteDialog({ controller, athlete }: AthleteDialogProps) {
                                 </SelectTrigger>
 
                                 <SelectContent>
-                                    <SelectItem value="none">Selecione uma opção</SelectItem>
+                                    <SelectItem value="none" disabled>Selecione uma opção</SelectItem>
 
                                     <SelectItem value="A_POSITIVE">A+</SelectItem>
                                     <SelectItem value="A_NEGATIVE">A-</SelectItem>

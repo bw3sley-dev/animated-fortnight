@@ -221,7 +221,7 @@ export function FormQuestion({ question, register, control, setValue }: FormQues
                             className="text-sm min-h-12"
                             maxLength={10}
                             onInput={(event) => (event.currentTarget.value = formatDate(event.currentTarget.value))}
-                            {...register(`question-${question.id}`)}
+                            {...register(`questions.${question.id}.answer`)}
                         />
 
                         <PopoverTrigger asChild className="cursor-pointer">
@@ -238,7 +238,7 @@ export function FormQuestion({ question, register, control, setValue }: FormQues
                             onSelect={(selectedDate) => {
                                 setDate(selectedDate);
 
-                                setValue(`question-${question.id}`, selectedDate ? format(selectedDate, "dd/MM/yyyy") : "");
+                                setValue(`questions.${question.id}.answer`, selectedDate ? format(selectedDate, "dd/MM/yyyy") : "");
                             }}
                             disabled={{ after: new Date() }}
                         />
